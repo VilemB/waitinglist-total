@@ -52,13 +52,3 @@
     @apply bg-background text-foreground;
   }
 }
-
-/* Rainbow spinning animation for badge */
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
