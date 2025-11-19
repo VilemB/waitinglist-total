@@ -62,7 +62,7 @@ async function forwardRequest(
     if (error instanceof Error && error.name === 'AbortError') {
       return NextResponse.json({ error: 'Request timeout' }, { status: 504 })
     }
-    return NextResponse.json({ error: 'Bad Gateway', details: error instanceof Error ? error.message : String(error) }, { status: 502 })
+    return NextResponse.json({ error: 'Bad Gateway' }, { status: 502 })
   }
 }
 
