@@ -12,7 +12,7 @@ Any changes you make to your deployed app will be automatically pushed to this r
 
 ## Deployment
 
-Your project is live at:jkjjhljhkl
+Your project is live at:
 
 **[https://vercel.com/vilem-barnets-projects/v0-documentation-10x-faster](https://vercel.com/vilem-barnets-projects/v0-documentation-10x-faster)**
 
