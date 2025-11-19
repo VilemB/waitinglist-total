@@ -18,11 +18,11 @@ export default function Hero() {
   }
 
   return (
-    <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
+    <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden bg-background">
       {/* Background Elements */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-7xl pointer-events-none">
-        <div className="absolute top-[20%] left-[10%] w-72 h-72 bg-primary/20 rounded-full blur-[100px]" />
-        <div className="absolute top-[30%] right-[10%] w-96 h-96 bg-secondary/20 rounded-full blur-[100px]" />
+        <div className="absolute top-[20%] left-[10%] w-72 h-72 bg-primary/5 rounded-full blur-[100px]" />
+        <div className="absolute top-[30%] right-[10%] w-96 h-96 bg-secondary/5 rounded-full blur-[100px]" />
       </div>
 
       <div className="container mx-auto px-4 md:px-6 relative z-10">
@@ -35,7 +35,7 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-sm font-medium text-primary mb-6">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-muted border border-border text-sm font-medium text-primary mb-6">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
@@ -43,8 +43,8 @@ export default function Hero() {
                 Join the waitlist
               </div>
 
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 leading-[1.1]">
-                Documentation that <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">writes itself</span>.
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 leading-[1.1] text-foreground">
+                Documentation that <span className="text-primary">writes itself</span>.
               </h1>
 
               <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
@@ -55,7 +55,7 @@ export default function Hero() {
                 <Input
                   type="email"
                   placeholder="Enter your email"
-                  className="bg-white/5 border-white/10 text-white placeholder:text-muted-foreground h-12"
+                  className="bg-white border-input text-foreground placeholder:text-muted-foreground h-12 rounded-full px-6 shadow-sm"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
@@ -63,7 +63,7 @@ export default function Hero() {
                 <Button
                   type="submit"
                   size="lg"
-                  className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-white border-0 h-12 px-8"
+                  className="bg-brand-dark hover:bg-brand-dark/90 text-white border-0 h-12 px-8 rounded-full shadow-md transition-all"
                 >
                   {submitted ? (
                     <span className="flex items-center gap-2">
@@ -80,11 +80,11 @@ export default function Hero() {
               <div className="mt-8 flex items-center justify-center lg:justify-start gap-6 text-sm text-muted-foreground">
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-primary" />
-                  <span>No credit card required</span>
+                  <span>Automated capture</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-primary" />
-                  <span>Free for early adopters</span>
+                  <span>Instant sharing</span>
                 </div>
               </div>
             </motion.div>
@@ -99,9 +99,9 @@ export default function Hero() {
               className="relative"
             >
               {/* Card Container */}
-              <div className="relative bg-[#161B28] border border-white/10 rounded-xl overflow-hidden shadow-2xl">
+              <div className="relative bg-white border border-border rounded-xl overflow-hidden shadow-2xl">
                 {/* Card Header */}
-                <div className="flex items-center justify-between px-4 py-3 border-b border-white/5 bg-[#0B0F19]/50">
+                <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-muted/30">
                   <div className="flex items-center gap-2">
                     <div className="w-3 h-3 rounded-full bg-red-500/20 border border-red-500/50" />
                     <div className="w-3 h-3 rounded-full bg-yellow-500/20 border border-yellow-500/50" />
@@ -116,9 +116,9 @@ export default function Hero() {
                   <div className="flex gap-4">
                     <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-sm border border-primary/20">1</div>
                     <div className="space-y-2 flex-1">
-                      <div className="h-4 w-3/4 bg-white/10 rounded animate-pulse" />
-                      <div className="h-32 w-full bg-black/40 rounded-lg border border-white/5 p-2">
-                        <div className="w-full h-full bg-gradient-to-br from-white/5 to-transparent rounded flex items-center justify-center text-muted-foreground/20 text-sm">
+                      <div className="h-4 w-3/4 bg-muted rounded" />
+                      <div className="h-32 w-full bg-muted/50 rounded-lg border border-border p-2">
+                        <div className="w-full h-full bg-white rounded flex items-center justify-center text-muted-foreground/40 text-sm border border-border/50 border-dashed">
                           Screenshot Preview
                         </div>
                       </div>
@@ -129,23 +129,23 @@ export default function Hero() {
                   <div className="flex gap-4">
                     <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-sm border border-primary/20">2</div>
                     <div className="space-y-2 flex-1">
-                      <div className="h-4 w-1/2 bg-white/10 rounded animate-pulse" />
-                      <div className="h-4 w-full bg-white/5 rounded animate-pulse delay-75" />
+                      <div className="h-4 w-1/2 bg-muted rounded" />
+                      <div className="h-4 w-full bg-muted/50 rounded delay-75" />
                     </div>
                   </div>
                 </div>
 
                 {/* Floating Badge */}
-                <div className="absolute bottom-6 right-6 bg-gradient-to-r from-primary to-secondary p-[1px] rounded-lg">
-                  <div className="bg-[#0B0F19] px-4 py-2 rounded-lg flex items-center gap-2">
+                <div className="absolute bottom-6 right-6">
+                  <div className="bg-brand-dark px-4 py-2 rounded-lg flex items-center gap-2 shadow-lg">
                     <span className="text-xs font-medium text-white">Generated in 2s</span>
                   </div>
                 </div>
               </div>
 
               {/* Decorative Elements behind card */}
-              <div className="absolute -z-10 top-10 -right-10 w-full h-full bg-white/5 rounded-xl border border-white/5 rotate-6 scale-90 opacity-50" />
-              <div className="absolute -z-20 top-20 -right-20 w-full h-full bg-white/5 rounded-xl border border-white/5 rotate-12 scale-80 opacity-25" />
+              <div className="absolute -z-10 top-10 -right-10 w-full h-full bg-muted rounded-xl border border-border rotate-6 scale-90 opacity-50" />
+              <div className="absolute -z-20 top-20 -right-20 w-full h-full bg-muted rounded-xl border border-border rotate-12 scale-80 opacity-25" />
             </motion.div>
           </div>
         </div>

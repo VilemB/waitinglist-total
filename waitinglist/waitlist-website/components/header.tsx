@@ -6,14 +6,11 @@ import { motion } from 'framer-motion'
 
 export default function Header() {
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-background/80 backdrop-blur-md">
+    <header className="fixed top-0 left-0 right-0 z-50 border-b border-border/40 bg-background/80 backdrop-blur-md">
       <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
         <Link href="/" className="flex items-center gap-2">
-          <span className="font-sans text-2xl font-bold tracking-tight">
-            <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-              Stepps
-            </span>
-            <span className="text-foreground">.ai</span>
+          <span className="font-sans text-2xl font-bold tracking-tight text-foreground">
+            Stepps.ai
           </span>
         </Link>
 
@@ -27,8 +24,8 @@ export default function Header() {
         </nav>
 
         <div className="flex items-center gap-4">
-          <Button 
-            className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-white border-0 font-medium"
+          <Button
+            className="bg-brand-dark hover:bg-brand-dark/90 text-white border-0 font-medium rounded-full px-6"
           >
             Join Waitlist
           </Button>

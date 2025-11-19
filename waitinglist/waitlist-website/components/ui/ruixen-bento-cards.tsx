@@ -52,7 +52,7 @@ const PlusCard: React.FC<{
     return (
       <div
         className={cn(
-          "relative border border-white/10 rounded-xl p-6 bg-[#161B28] hover:bg-[#1C2230] transition-colors group",
+          "relative border border-border rounded-xl p-6 bg-white hover:border-primary/50 transition-colors group shadow-sm hover:shadow-md",
           "flex flex-col justify-between",
           className
         )}
@@ -102,10 +102,8 @@ export default function RuixenBentoCards() {
 
         {/* Section Footer Heading */}
         <div className="max-w-2xl md:max-w-3xl xl:max-w-4xl ml-auto text-right px-4 sm:px-6 mt-12 relative z-5">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 leading-tight">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
-              Better documentation, faster.
-            </span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 leading-tight text-foreground">
+            Better documentation, faster.
           </h2>
           <p className="text-muted-foreground text-lg leading-relaxed">
             Transform how your team creates and shares process documentation. Join the waitlist for early access.

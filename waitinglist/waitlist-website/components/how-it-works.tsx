@@ -107,10 +107,8 @@ export default function HowItWorks() {
               How it works
             </Badge>
           </div>
-          <h2 ref={titleRef} className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold mb-2 sm:mb-3 lg:mb-4 leading-tight">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-white/70">
-              Transform your workflow
-            </span>
+          <h2 ref={titleRef} className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold mb-2 sm:mb-3 lg:mb-4 leading-tight text-foreground">
+            Transform your workflow
           </h2>
           <p ref={descriptionRef} className="text-sm sm:text-base lg:text-lg text-muted-foreground max-w-xs sm:max-w-2xl lg:max-w-3xl mx-auto leading-relaxed">
             From recording to sharing, our AI-powered platform makes documentation effortless and collaborative

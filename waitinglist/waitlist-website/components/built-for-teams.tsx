@@ -79,10 +79,8 @@ export default function BuiltForTeams() {
               Built for Teams
             </Badge>
           </div>
-          <h2 ref={titleRef} className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold mb-2 sm:mb-3 lg:mb-4 leading-tight">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-white/70">
-              Made for every team
-            </span>
+          <h2 ref={titleRef} className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold mb-2 sm:mb-3 lg:mb-4 leading-tight text-foreground">
+            Made for every team
           </h2>
           <p ref={descriptionRef} className="text-sm sm:text-base lg:text-lg text-muted-foreground max-w-xs sm:max-w-xl lg:max-w-2xl mx-auto leading-relaxed">
             From engineering to customer support, documentation that scales with your organization
