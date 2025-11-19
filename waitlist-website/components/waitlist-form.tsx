@@ -84,7 +84,7 @@ export function WaitlistForm({ className, variant = 'default' }: WaitlistFormPro
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className={cn("w-full max-w-2xl", className)}>
-            <div className="relative mb-8">
+            <div className="mb-8">
                 {/* Container with integrated input and button */}
                 <div className={cn(
                     "relative flex items-center rounded-full overflow-hidden border transition-all",
@@ -161,18 +161,17 @@ export function WaitlistForm({ className, variant = 'default' }: WaitlistFormPro
                     </button>
                 </div>
 
-                {/* Error Messages */}
-                {submitError && (
-                    <div className="absolute -bottom-6 left-0 right-0 px-6">
-                        <span className={cn(
-                            "text-xs",
-                            variant === 'footer' ? "text-red-300" : "text-red-500"
-                        )}>
-                            {submitError}
-                        </span>
-                    </div>
-                )}
-            </div>
+                </div>
+
+            {/* Error Message */}
+            {submitError && (
+                <p className={cn(
+                    "text-sm text-center",
+                    variant === 'footer' ? "text-red-300" : "text-red-500"
+                )}>
+                    {submitError}
+                </p>
+            )}
 
             {/* Description text */}
             {currentStep === 'email' && (
