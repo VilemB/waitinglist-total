@@ -1,20 +1,25 @@
 import type { Metadata } from 'next'
-import { Inter, Merriweather } from 'next/font/google'
+import { Inter, Space_Grotesk } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 import { QueryProvider } from '@/components/providers/query-provider'
 
-const _inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
-const _merriweather = Merriweather({ 
-  subsets: ['latin'], 
-  variable: '--font-merriweather',
-  weight: ['300', '400', '700', '900']
+const spaceGrotesk = Space_Grotesk({
+  subsets: ['latin'],
+  variable: '--font-space-grotesk',
+  weight: ['300', '400', '500', '600', '700']
+})
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  weight: ['300', '400', '500', '600', '700']
 })
 
 export const metadata: Metadata = {
-  title: 'Documentation 10x Faster',
-  description: 'Turn any workflow into a clean, editable step-by-step guide in seconds',
-  generator: 'v0.app',
+  title: 'Stepps - Step-by-Step Guides Made Simple',
+  description: 'Create beautiful, step-by-step guides in seconds with Stepps.ai',
+  generator: 'Stepps.ai',
   icons: {
     icon: [
       {
@@ -40,8 +45,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${_inter.variable} ${_merriweather.variable}`}>
-      <body className="font-sans antialiased">
+    <html lang="en" className={`${spaceGrotesk.variable} ${inter.variable}`}>
+      <body className="font-mono antialiased">
         <QueryProvider>
           {children}
         </QueryProvider>
