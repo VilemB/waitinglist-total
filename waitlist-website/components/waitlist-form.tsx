@@ -3,11 +3,13 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation } from '@tanstack/react-query'
 import * as z from 'zod'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { ArrowRight, CheckCircle2, Loader2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { subscribeToWaitlist } from '@/app/api/actions/newsletterActions'
 
 const formSchema = z.object({
     email: z.string().email({ message: "Please enter a valid email address" }),
@@ -23,12 +25,29 @@ interface WaitlistFormProps {
 export function WaitlistForm({ className, variant = 'default' }: WaitlistFormProps) {
     const [isSubmitted, setIsSubmitted] = useState(false)
 
-    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<FormData>({
+    const { register, handleSubmit, reset, formState: { errors } } = useForm<FormData>({
         resolver: zodResolver(formSchema),
     })
 
+    const mutation = useMutation({
+        mutationFn: subscribeToWaitlist,
+        onSuccess: () => {
+            setIsSubmitted(true)
+            reset()
+            setTimeout(() => {
+                setIsSubmitted(false)
+            }, 2000)
+        },
+    })
+
     const onSubmit = async (data: FormData) => {
-        // HERE WE NEED TO CALL THE API TO SUBSCRIBE TO THE WAITLIST
+        try {
+            // Derive name from email (part before @) or use default
+            const name = data.email.split('@')[0] || 'User'
+            await mutation.mutateAsync({ name, email: data.email })
+        } catch (error) {
+            console.error('Failed to add to waitlist', error)
+        }
     }
 
     return (
@@ -67,7 +86,7 @@ export function WaitlistForm({ className, variant = 'default' }: WaitlistFormPro
                         {...register('email')}
                         type="email"
                         placeholder="Enter your email"
-                        disabled={isSubmitting || isSubmitted}
+                        disabled={mutation.isPending || isSubmitted}
                         className={cn(
                             "flex-1 h-14 bg-transparent border-0 outline-none text-base",
                             "placeholder:text-sm",
@@ -80,7 +99,7 @@ export function WaitlistForm({ className, variant = 'default' }: WaitlistFormPro
                     {/* Submit Button */}
                     <button
                         type="submit"
-                        disabled={isSubmitting || isSubmitted}
+                        disabled={mutation.isPending || isSubmitted}
                         className={cn(
                             "m-1.5 h-11 px-6 rounded-full font-medium transition-all shrink-0 flex items-center gap-2",
                             variant === 'footer'
@@ -89,7 +108,7 @@ export function WaitlistForm({ className, variant = 'default' }: WaitlistFormPro
                             "disabled:opacity-50 disabled:cursor-not-allowed"
                         )}
                     >
-                        {isSubmitting ? (
+                        {mutation.isPending ? (
                             <Loader2 className="w-4 h-4 animate-spin" />
                         ) : isSubmitted ? (
                             <>
@@ -105,13 +124,21 @@ export function WaitlistForm({ className, variant = 'default' }: WaitlistFormPro
                     </button>
                 </div>
 
-                {/* Error Message */}
+                {/* Error Messages */}
                 {errors.email && (
                     <span className={cn(
                         "absolute -bottom-6 left-6 text-xs",
                         variant === 'footer' ? "text-red-300" : "text-red-500"
                     )}>
                         {errors.email.message}
+                    </span>
+                )}
+                {mutation.isError && !errors.email && (
+                    <span className={cn(
+                        "absolute -bottom-6 left-6 text-xs",
+                        variant === 'footer' ? "text-red-300" : "text-red-500"
+                    )}>
+                        {(mutation.error as Error)?.message ?? "Something went wrong, please try again."}
                     </span>
                 )}
             </div>
