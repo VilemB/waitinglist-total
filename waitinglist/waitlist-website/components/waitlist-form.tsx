@@ -28,11 +28,7 @@ export function WaitlistForm({ className, variant = 'default' }: WaitlistFormPro
     })
 
     const onSubmit = async (data: FormData) => {
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 1500))
-        console.log(data)
-        setIsSubmitted(true)
-        setTimeout(() => setIsSubmitted(false), 3000)
+        // HERE WE NEED TO CALL THE API TO SUBSCRIBE TO THE WAITLIST
     }
 
     return (
