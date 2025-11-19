@@ -11,8 +11,17 @@ import { ArrowRight, CheckCircle2, Loader2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { subscribeToWaitlist } from '@/app/api/actions/newsletterActions'
 
+const emailSchema = z.object({
+    email: z.string().email({ message: "Please enter a valid email address" }),
+})
+
+const nameSchema = z.object({
+    name: z.string().min(1, { message: "Please enter your name" }),
+})
+
 const formSchema = z.object({
     email: z.string().email({ message: "Please enter a valid email address" }),
+    name: z.string().min(1, { message: "Please enter your name" }),
 })
 
 type FormData = z.infer<typeof formSchema>
@@ -22,37 +31,60 @@ interface WaitlistFormProps {
     variant?: 'default' | 'footer'
 }
 
+type FormStep = 'email' | 'name' | 'submitted'
+
 export function WaitlistForm({ className, variant = 'default' }: WaitlistFormProps) {
-    const [isSubmitted, setIsSubmitted] = useState(false)
+    const [currentStep, setCurrentStep] = useState<FormStep>('email')
+    const [collectedEmail, setCollectedEmail] = useState('')
+    const [submitError, setSubmitError] = useState('')
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm<FormData>({
-        resolver: zodResolver(formSchema),
+        resolver: zodResolver(currentStep === 'email' ? emailSchema : nameSchema),
+        mode: 'onSubmit',
     })
 
     const mutation = useMutation({
         mutationFn: subscribeToWaitlist,
         onSuccess: () => {
-            setIsSubmitted(true)
+            setCurrentStep('submitted')
             reset()
+            setCollectedEmail('')
+            setSubmitError('')
             setTimeout(() => {
-                setIsSubmitted(false)
-            }, 2000)
+                setCurrentStep('email')
+            }, 3000)
+        },
+        onError: (error) => {
+            setSubmitError(error.message || "Something went wrong, please try again.")
         },
     })
 
     const onSubmit = async (data: FormData) => {
-        try {
-            // Derive name from email (part before @) or use default
-            const name = data.email.split('@')[0] || 'User'
-            await mutation.mutateAsync({ name, email: data.email })
-        } catch (error) {
-            console.error('Failed to add to waitlist', error)
+        setSubmitError('')
+
+        if (currentStep === 'email') {
+            if (data.email && data.email.includes('@')) {
+                setCollectedEmail(data.email)
+                setCurrentStep('name')
+                reset({ email: data.email, name: '' })
+            } else {
+                setSubmitError("Please enter a valid email address")
+            }
+        } else if (currentStep === 'name') {
+            if (data.name && data.name.trim().length > 0) {
+                await mutation.mutateAsync({
+                    name: data.name.trim(),
+                    email: collectedEmail
+                })
+            } else {
+                setSubmitError("Please enter your name")
+            }
         }
     }
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className={cn("w-full max-w-2xl", className)}>
-            <div className="relative">
+            <div className="relative mb-8">
                 {/* Container with integrated input and button */}
                 <div className={cn(
                     "relative flex items-center rounded-full overflow-hidden border transition-all",
@@ -83,10 +115,10 @@ export function WaitlistForm({ className, variant = 'default' }: WaitlistFormPro
 
                     {/* Input */}
                     <input
-                        {...register('email')}
-                        type="email"
-                        placeholder="Enter your email"
-                        disabled={mutation.isPending || isSubmitted}
+                        {...register(currentStep === 'email' ? 'email' : 'name')}
+                        type={currentStep === 'email' ? 'email' : 'text'}
+                        placeholder={currentStep === 'email' ? 'Enter your email' : 'What\'s your name?'}
+                        disabled={mutation.isPending || currentStep === 'submitted'}
                         className={cn(
                             "flex-1 h-14 bg-transparent border-0 outline-none text-base",
                             "placeholder:text-sm",
@@ -99,7 +131,7 @@ export function WaitlistForm({ className, variant = 'default' }: WaitlistFormPro
                     {/* Submit Button */}
                     <button
                         type="submit"
-                        disabled={mutation.isPending || isSubmitted}
+                        disabled={mutation.isPending || currentStep === 'submitted'}
                         className={cn(
                             "m-1.5 h-11 px-6 rounded-full font-medium transition-all shrink-0 flex items-center gap-2",
                             variant === 'footer'
@@ -110,10 +142,15 @@ export function WaitlistForm({ className, variant = 'default' }: WaitlistFormPro
                     >
                         {mutation.isPending ? (
                             <Loader2 className="w-4 h-4 animate-spin" />
-                        ) : isSubmitted ? (
+                        ) : currentStep === 'submitted' ? (
                             <>
                                 <CheckCircle2 className="w-4 h-4" />
-                                <span className="hidden sm:inline">Joined</span>
+                                <span className="hidden sm:inline">Joined!</span>
+                            </>
+                        ) : currentStep === 'email' ? (
+                            <>
+                                <span className="hidden sm:inline">Next</span>
+                                <ArrowRight className="w-4 h-4" />
                             </>
                         ) : (
                             <>
@@ -125,23 +162,27 @@ export function WaitlistForm({ className, variant = 'default' }: WaitlistFormPro
                 </div>
 
                 {/* Error Messages */}
-                {errors.email && (
-                    <span className={cn(
-                        "absolute -bottom-6 left-6 text-xs",
-                        variant === 'footer' ? "text-red-300" : "text-red-500"
-                    )}>
-                        {errors.email.message}
-                    </span>
-                )}
-                {mutation.isError && !errors.email && (
-                    <span className={cn(
-                        "absolute -bottom-6 left-6 text-xs",
-                        variant === 'footer' ? "text-red-300" : "text-red-500"
-                    )}>
-                        {(mutation.error as Error)?.message ?? "Something went wrong, please try again."}
-                    </span>
+                {submitError && (
+                    <div className="absolute -bottom-6 left-0 right-0 px-6">
+                        <span className={cn(
+                            "text-xs",
+                            variant === 'footer' ? "text-red-300" : "text-red-500"
+                        )}>
+                            {submitError}
+                        </span>
+                    </div>
                 )}
             </div>
+
+            {/* Description text */}
+            {currentStep === 'email' && (
+                <p className={cn(
+                    "text-sm text-center",
+                    variant === 'footer' ? "text-white/60" : "text-muted-foreground"
+                )}>
+                    Join the waitlist
+                </p>
+            )}
         </form>
     )
 }
