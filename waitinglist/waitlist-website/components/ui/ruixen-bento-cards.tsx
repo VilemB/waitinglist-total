@@ -1,8 +1,9 @@
 "use client"
 
+import Image from "next/image"
 import React from "react"
 import { cn } from "@/lib/utils"
-import { ArrowUpRight } from "lucide-react"
+import Link from "next/link"
 
 const cardContents = [
   {
@@ -33,22 +34,6 @@ const cardContents = [
 ]
 
 
-const CornerPlusIcon = ({ className }: { className?: string }) => {
-  return (
-    <div className={cn("absolute w-4 h-4 pointer-events-none z-20", className)}>
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        className="w-full h-full text-muted-foreground/40"
-      >
-        <path d="M12 5v14M5 12h14" />
-      </svg>
-    </div>
-  );
-};
-
 const PlusCard: React.FC<{
   className?: string
   title: string
@@ -61,50 +46,68 @@ const PlusCard: React.FC<{
     return (
       <div
         className={cn(
-          "relative border border-border rounded-xl p-6 bg-white hover:border-primary/50 transition-colors group shadow-sm hover:shadow-md",
+          "relative border border-dashed border-zinc-400 dark:border-zinc-700 rounded-lg p-6 bg-white dark:bg-zinc-950 min-h-[200px]",
           "flex flex-col justify-between",
           className
         )}
       >
-        {/* Corner Icons */}
-        <CornerPlusIcon className="-top-2 -left-2" />
-        <CornerPlusIcon className="-top-2 -right-2" />
-        <CornerPlusIcon className="-bottom-2 -left-2" />
-        <CornerPlusIcon className="-bottom-2 -right-2" />
-
-        <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-          <ArrowUpRight className="w-5 h-5 text-primary" />
-        </div>
-
+        <CornerPlusIcons />
         {/* Content */}
-        <div className="relative z-10 space-y-4">
-          <div className="space-y-2">
-            <h3 className="text-xl font-bold text-foreground leading-tight group-hover:text-primary transition-colors">
-              {title}
-            </h3>
-            <p className="text-muted-foreground leading-relaxed">{description}</p>
-          </div>
+        <div className="relative z-10 space-y-2">
+          <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">
+            {title}
+          </h3>
+          <p className="text-gray-700 dark:text-gray-300">{description}</p>
         </div>
       </div>
     )
   }
 
+const CornerPlusIcons = () => (
+  <>
+    <PlusIcon className="absolute -top-3 -left-3" />
+    <PlusIcon className="absolute -top-3 -right-3" />
+    <PlusIcon className="absolute -bottom-3 -left-3" />
+    <PlusIcon className="absolute -bottom-3 -right-3" />
+  </>
+)
+
+const PlusIcon = ({ className }: { className?: string }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    width={24}
+    height={24}
+    strokeWidth="1"
+    stroke="currentColor"
+    className={`dark:text-white text-black size-6 ${className}`}
+  >
+    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m6-6H6" />
+  </svg>
+)
+
 export default function RuixenBentoCards() {
   return (
-    <section className="relative z-10">
-      <div className="mx-auto container py-12 px-4 sm:px-6 lg:px-8">
+    <section className="bg-white dark:bg-black dark:bg-transparent border border-gray-200 dark:border-gray-800">
+      <div className="mx-auto container border border-gray-200 dark:border-gray-800 py-12 border-t-0 px-4">
         {/* Responsive Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 xl:grid-cols-6 auto-rows-auto gap-4 relative z-0">
-          {/* Large featured card - takes top row */}
-          <PlusCard {...cardContents[0]} className="plus-card lg:col-span-3 lg:row-span-2 xl:col-span-3" />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 auto-rows-auto gap-4">
+          <PlusCard {...cardContents[0]} className="lg:col-span-3 lg:row-span-2" />
+          <PlusCard {...cardContents[1]} className="lg:col-span-2 lg:row-span-2" />
+          <PlusCard {...cardContents[2]} className="lg:col-span-4 lg:row-span-1" />
+          <PlusCard {...cardContents[3]} className="lg:col-span-2 lg:row-span-1" />
+          <PlusCard {...cardContents[4]} className="lg:col-span-2 lg:row-span-1" />
+        </div>
 
-          {/* Secondary card */}
-          <PlusCard {...cardContents[1]} className="plus-card lg:col-span-3 lg:row-span-2 xl:col-span-3" />
-
-          {/* Third row cards */}
-          <PlusCard {...cardContents[2]} className="plus-card lg:col-span-2 lg:row-span-1" />
-          <PlusCard {...cardContents[3]} className="plus-card lg:col-span-2 lg:row-span-1" />
-          <PlusCard {...cardContents[4]} className="plus-card lg:col-span-2 lg:row-span-1" />
+        {/* Section Footer Heading */}
+        <div className="max-w-2xl ml-auto text-right px-4 mt-6 lg:-mt-20">
+          <h2 className="text-4xl md:text-6xl font-bold text-black dark:text-white mb-4">
+            Documentation made simple.
+          </h2>
+          <p className="text-gray-600 dark:text-gray-400 text-lg">
+            Stepps.ai transforms your workflow into beautiful documentation automatically. Record once, share everywhere.
+          </p>
         </div>
       </div>
     </section>
