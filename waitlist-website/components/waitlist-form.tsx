@@ -45,13 +45,20 @@ export function WaitlistForm({ className, variant = 'default' }: WaitlistFormPro
 
     const mutation = useMutation({
         mutationFn: subscribeToWaitlist,
-        onSuccess: () => {
+        onSuccess: (data) => {
             setCurrentStep('submitted')
             reset()
             setCollectedEmail('')
-            setSubmitError('')
+
+            if (data.is_existing) {
+                setSubmitError("You have already signed up for the waiting list!")
+            } else {
+                setSubmitError('')
+            }
+
             setTimeout(() => {
                 setCurrentStep('email')
+                setSubmitError('')
             }, 3000)
         },
         onError: (error) => {
@@ -161,7 +168,7 @@ export function WaitlistForm({ className, variant = 'default' }: WaitlistFormPro
                     </button>
                 </div>
 
-                </div>
+            </div>
 
             {/* Error Message */}
             {submitError && (
