@@ -25,11 +25,18 @@ export const subscribeToWaitlist = async (
     const errorBody = await response
       .json()
       .catch(() => ({ detail: 'Something went wrong while subscribing. Please try again later.' }))
+
+    console.error('Waitlist subscription failed:', {
+      status: response.status,
+      statusText: response.statusText,
+      errorBody,
+    })
+
     const detail =
       typeof errorBody === 'object' && errorBody !== null && 'detail' in errorBody
         ? (errorBody as { detail: string }).detail
         : 'Something went wrong while subscribing. Please try again later.'
-    throw new Error(detail)
+    throw new Error(`${detail} (Status: ${response.status})`)
   }
 
   const text = await response.text()

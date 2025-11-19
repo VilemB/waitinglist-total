@@ -25,6 +25,7 @@ async function forwardRequest(
   const encodedPath = slugSegments.map((segment) => encodeURIComponent(segment)).join('/')
   const path = `/api/v1/${encodedPath}`
   const targetUrl = `${backendUrl}${path}${searchParams ? `?${searchParams}` : ''}`
+  console.log(`[Proxy] Forwarding ${method} request to: ${targetUrl}`)
 
   const headers = new Headers()
   const contentType = request.headers.get('content-type')
@@ -57,10 +58,11 @@ async function forwardRequest(
       headers: cleanHeaders,
     })
   } catch (error) {
+    console.error('Proxy request failed:', error)
     if (error instanceof Error && error.name === 'AbortError') {
       return NextResponse.json({ error: 'Request timeout' }, { status: 504 })
     }
-    return NextResponse.json({ error: 'Bad Gateway' }, { status: 502 })
+    return NextResponse.json({ error: 'Bad Gateway', details: error instanceof Error ? error.message : String(error) }, { status: 502 })
   }
 }
 
