@@ -24,17 +24,17 @@ export const subscribeToWaitlist = async (
   if (!response.ok) {
     const errorBody = await response
       .json()
-      .catch(() => ({ detail: 'Er ging iets mis, probeer het opnieuw.' }))
+      .catch(() => ({ detail: 'Something went wrong while subscribing. Please try again later.' }))
     const detail =
       typeof errorBody === 'object' && errorBody !== null && 'detail' in errorBody
         ? (errorBody as { detail: string }).detail
-        : 'Er ging iets mis, probeer het opnieuw.'
+        : 'Something went wrong while subscribing. Please try again later.'
     throw new Error(detail)
   }
 
   const text = await response.text()
   if (!text) {
-    return { success: true, message: 'Je staat op de wachtlijst!' }
+    return { success: true, message: 'You are on the waitlist!' }
   }
 
   try {
