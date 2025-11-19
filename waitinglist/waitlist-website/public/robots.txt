@@ -1,0 +1,23 @@
+# Stepps.ai robots.txt
+# https://www.robotstxt.org/robotstxt.html
+
+User-agent: *
+Allow: /
+Allow: /favicon.ico
+Allow: /favicon-16.png
+Allow: /icon.png
+Allow: /logo.svg
+Allow: /apple-icon*.png
+Allow: /site.webmanifest
+
+# Block common non-content paths
+Disallow: /_next/
+Disallow: /api/
+Disallow: /static/
+Disallow: /.well-known/
+
+# Allow search engines to crawl the site
+Sitemap: https://stepps.ai/sitemap.xml
+
+# Crawl delay (optional, adjust as needed)
+Crawl-delay: 1
