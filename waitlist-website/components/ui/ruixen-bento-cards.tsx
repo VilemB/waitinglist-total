@@ -46,7 +46,7 @@ const PlusCard: React.FC<{
     return (
       <div
         className={cn(
-          "relative border border-dashed border-border rounded-lg p-6 hover:border-primary/50 transition-colors group min-h-[200px]",
+          "plus-card relative border border-dashed border-border rounded-lg p-6 hover:border-primary/50 transition-colors group min-h-[200px]",
           "flex flex-col justify-between",
           className
         )}
