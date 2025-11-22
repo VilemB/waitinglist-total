@@ -39,36 +39,36 @@ export function FeatureCard({ feature, className, index = 0, ...props }: Feature
 
 export function GridFeatureCards() {
 	const features = [
-		{
-			title: "Operations",
-			description: "Standardize processes with automated workflows and version control",
-			icon: Settings,
-		},
-		{
-			title: "Product Teams",
-			description: "Accelerate alignment with clear documentation and training materials",
-			icon: Zap,
-		},
-		{
+		  {
 			title: "Customer Support",
-			description: "Resolve issues faster with visual guides and knowledge bases",
-			icon: MessageSquare,
-		},
-		{
-			title: "Engineering",
-			description: "Streamline development with API docs and technical specifications",
-			icon: Code,
-		},
-		{
+			description: "Deliver fast, step-by-step support with SOPs and visual guides your team can reuse and share.",
+			icon: MessageSquare
+		  },
+		  {
+			title: "Product Teams",
+			description: "Streamline feature launches and cross-team alignment with documented flows and SOPs everyone can follow.",
+			icon: Zap
+		  },
+		  {
+			title: "Operations",
+			description: "Standardize workflows and minimize mistakes with clearly documented SOPs and process guides.",
+			icon: Settings
+		  },
+		  {
 			title: "HR & Onboarding",
-			description: "Simplify employee onboarding with policy documents and compliance",
-			icon: Users,
-		},
-		{
+			description: "Accelerate onboarding with automated SOPs, role-based walkthroughs, and company policy documentation.",
+			icon: Users
+		  },
+		  {
+			title: "Engineering",
+			description: "Capture technical processes and environment setup as SOPs your engineering team can always reference.",
+			icon: Code
+		  },
+		  {
 			title: "Sales & Marketing",
-			description: "Enable teams with brand guidelines and competitive analysis",
-			icon: TrendingUp,
-		},
+			description: "Keep GTM teams aligned with repeatable SOPs, messaging frameworks, and visual playbooks.",
+			icon: TrendingUp
+		  }
 	];
 
 	return (
