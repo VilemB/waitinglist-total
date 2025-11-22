@@ -48,7 +48,7 @@ export default function Hero() {
               </h1>
 
               <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-                stepps.ai will automatically record your workflow and generate beautiful, step-by-step guides. Stop writing docs manually.
+                Transform any workflow into professional SOPs and visual guides. AI-powered documentation that keeps your team aligned and productive.
               </p>
 
               <WaitlistForm className="mx-auto lg:mx-0" />
