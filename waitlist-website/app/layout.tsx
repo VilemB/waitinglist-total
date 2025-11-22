@@ -17,7 +17,7 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'Stepps - AI SOP Generator for Customer Support, Operations & Product Teams',
+  title: 'Stepps - create SOPs and process documentation easily with AI',
   description: 'Transform any workflow into professional SOPs and visual guides in seconds. Perfect for customer support teams, operations managers, HR onboarding, product teams, and engineering documentation.',
   keywords: [
     // Core Product Keywords
