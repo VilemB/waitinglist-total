@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { Inter, Space_Grotesk } from 'next/font/google'
-import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 import { QueryProvider } from '@/components/providers/query-provider'
 
@@ -110,7 +109,6 @@ export default function RootLayout({
         <QueryProvider>
           {children}
         </QueryProvider>
-        <Analytics />
       </body>
     </html>
   )
