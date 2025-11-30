@@ -11,6 +11,16 @@
         "directory": ".open-next/assets",
         "binding": "ASSETS"
     },
+    "routes": [
+        {
+            "custom_domain": true,
+            "pattern": "stepps.ai"
+        },
+        {
+            "custom_domain": true,
+            "pattern": "www.stepps.ai"
+        }
+    ],
     "services": [
         {
             "binding": "WORKER_SELF_REFERENCE",
